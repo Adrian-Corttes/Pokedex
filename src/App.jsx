@@ -1,4 +1,5 @@
-import "./components/Home";
+import React from "react";
+
 import AppRouter from "./AppRouter";
 
 
