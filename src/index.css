@@ -136,7 +136,7 @@ header form{
 }
 .pokemon-id{
    display: block;
-   color: #888;
+   color: #333 !important;
    margin-bottom: 15px;
 }
 .card-types{
