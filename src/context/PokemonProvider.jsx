@@ -50,8 +50,8 @@ const PokemonProvider = ({ children }) => {
 
     //LLamada a la API, pokemons Individuales.
     const promises = data.results.map(async (pokemon) => {
-      //const res = await fetch(pokemon.url);
-      //const data = await res.json();
+      const res = await fetch(pokemon.url);
+      const data = await res.json();
 
       return data;
     });
