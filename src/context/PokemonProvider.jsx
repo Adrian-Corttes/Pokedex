@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PokemonContex } from "./PokemonContex";
+import { PokemonContext } from "./PokemonContext";
 import useForm from "../Hooks/useForm";
 
 //Provider
@@ -8,12 +8,14 @@ const PokemonProvider = ({ children }) => {
   const [allPokemos, setAllPokemos] = useState([]);
   const [offset, setOffset] = useState(0);
 
-  //CustomHook - useForm
+  //CustomHook - useForm (Formulario de busqueda)
   const { valueSearch, onInputChange, onResetForm } = useForm({
     valueSearch: "",
   });
 
+  //Carga
   const [loading, setLoading] = useState(true);
+  //Filtrado
   const [active, setActive] = useState(false);
 
   //Llamada a la API. (50 pokemones)
@@ -24,7 +26,6 @@ const PokemonProvider = ({ children }) => {
       `${baseURL}pokemon?offset=${offset}&limit=${limit}`
     );
     const data = await res.json();
-    //console.log(data);
 
     //LLamada a la API, pokemons Individuales.
     const promises = data.results.map(async (pokemon) => {
@@ -34,13 +35,14 @@ const PokemonProvider = ({ children }) => {
       return data;
     });
 
+    //Desestructuramos la data (promises)
     const results = await Promise.all(promises);
 
     setFiftyPokémons([...FiftyPokémons, ...results]);
     setLoading(false);
   };
 
-  //Llamada a la API (All pokemons)
+  //Llamada a la API (Todos los pokemon)
   const getAllPokemons = async () => {
     const baseURL = "https://pokeapi.co/api/v2/";
 
@@ -63,8 +65,10 @@ const PokemonProvider = ({ children }) => {
   };
 
   //Llamada a la API,(Por ID)
-  const getPokemonByID = async () => {
-    const res = await fetch(`${baseURL}pokemon${id}`);
+  const getPokemonByID = async (id) => {
+    const baseURL = "https://pokeapi.co/api/v2/";
+
+    const res = await fetch(`${baseURL}pokemon/${id}`);
     const data = await res.json();
     return data;
   };
@@ -78,18 +82,18 @@ const PokemonProvider = ({ children }) => {
   }, []);
 
   return (
-    <PokemonContex.Provider
+    <PokemonContext.Provider
       value={{
         valueSearch,
         onInputChange,
         onResetForm,
         FiftyPokémons,
         allPokemos,
-        getPokemonByID
+        getPokemonByID,
       }}
     >
       {children}
-    </PokemonContex.Provider>
+    </PokemonContext.Provider>
   );
 };
 

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { PokemonContex } from "../context/PokemonContex";
+import { PokemonContext } from "../context/PokemonContext";
 import CardPokemon from "../components/CardPokemon";
 
 const PokemonList = () => {
-  const { FiftyPokémons } = useContext(PokemonContex);
+  const { FiftyPokémons } = useContext(PokemonContext);
 
   return (
     <>

@@ -136,7 +136,7 @@ header form{
 }
 .pokemon-id{
    display: block;
-   color: #333 !important;
+   color: #333;
    margin-bottom: 15px;
 }
 .card-types{
@@ -144,7 +144,7 @@ header form{
    gap: 10px;
    margin-top: 10px;
 }
-.card-info span{
+.card-types span{
    font-size: 12px;
    padding: 5px 20px;
    border-radius: 5px;
@@ -349,4 +349,11 @@ header form{
    height: 30px;
    background-color: var(--color-primary);
    border-radius: 10px;
+}
+
+/*====== Loader =====*/
+.container-loader{
+   display: flex;
+   justify-content: center;
+   margin: 200px 0;
 }
