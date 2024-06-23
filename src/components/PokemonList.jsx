@@ -4,7 +4,8 @@ import CardPokemon from "../components/CardPokemon";
 import Loader from "../components/Loader";
 
 const PokemonList = () => {
-  const { FiftyPokémons, loading } = useContext(PokemonContext);
+  const { FiftyPokémons, loading, filteredPokemons } =
+    useContext(PokemonContext);
 
   return (
     <>
@@ -12,9 +13,19 @@ const PokemonList = () => {
         <Loader />
       ) : (
         <main className="card-list-pokemon container">
-          {FiftyPokémons.map((pokemon) => (
-            <CardPokemon pokemon={pokemon} key={pokemon.id} />
-          ))}
+          {filteredPokemons.length ? (
+            <>
+              {filteredPokemons.map((pokemon) => (
+                <CardPokemon pokemon={pokemon} key={pokemon.id} />
+              ))}
+            </>
+          ) : (
+            <>
+              {FiftyPokémons.map((pokemon) => (
+                <CardPokemon pokemon={pokemon} key={pokemon.id} />
+              ))}
+            </>
+          )}
         </main>
       )}
     </>

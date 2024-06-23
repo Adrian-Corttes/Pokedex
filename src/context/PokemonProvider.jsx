@@ -55,15 +55,14 @@ const PokemonProvider = ({ children }) => {
       const data = await res.json();
 
       return data;
-      
     });
-   
+
     const results = await Promise.all(promises);
 
     setAllPokemos(results);
     setLoading(false);
   };
-  
+
   //Llamada a la API,(Por ID)
   const getPokemonByID = async (id) => {
     const baseURL = "https://pokeapi.co/api/v2/";
@@ -82,10 +81,53 @@ const PokemonProvider = ({ children }) => {
   }, []);
 
   //Btn Cargar mas
-  const onClickLoadMore = ()=> {
-    setOffset(offset + 50)
-  }
-  
+  const onClickLoadMore = () => {
+    setOffset(offset + 50);
+  };
+
+  //fliter functión + state
+  const [typeSelected, setTypeSelected] = useState({
+    grass: false,
+    normal: false,
+    fighting: false,
+    flying: false,
+    poison: false,
+    ground: false,
+    rock: false,
+    bug: false,
+    ghost: false,
+    steel: false,
+    fire: false,
+    water: false,
+    electric: false,
+    psychic: false,
+    ice: false,
+    dragon: false,
+    dark: false,
+    fairy: false,
+    unknow: false,
+    shadow: false,
+  });
+
+  const [filteredPokemons, setFilteredPokemons] = useState([]);
+
+  const handleCheckbox = (e) => {
+    setTypeSelected({...typeSelected, [e.target.name]: e.target.checked });
+
+    if (e.target.checked) {
+      const filteredResults = allPokemos.filter((pokemon) =>
+        pokemon.types.map(type => type.type.name).includes(e.target.name)
+      );
+      setFilteredPokemons([...FiftyPokémons, ...filteredResults])
+    }
+    else{
+      const filteredResults = filteredPokemons.filter((pokemon) =>
+        !pokemon.types.map(type => type.type.name).includes(e.target.name)
+      );
+      setFilteredPokemons([...filteredResults])
+    }
+  };
+
   return (
     <PokemonContext.Provider
       value={{
@@ -102,7 +144,9 @@ const PokemonProvider = ({ children }) => {
         //Filter
         active,
         setActive,
-        
+        //Filter container
+        handleCheckbox,
+        filteredPokemons,
       }}
     >
       {children}
