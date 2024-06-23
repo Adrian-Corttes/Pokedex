@@ -357,3 +357,28 @@ header form{
    justify-content: center;
    margin: 200px 0;
 }
+
+/* Btn Load More */
+
+.container-btn-load-more{
+	display: flex;
+	justify-content: center;
+
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.btn-load-more{
+	border: none;
+	padding: 15px 40px;
+	font-family: inherit;
+	background-color: var(--color-primary);
+	color: #fff;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.btn-load-more:hover{
+	background-color: var(--color-primary-hover);
+	color: #000;
+}

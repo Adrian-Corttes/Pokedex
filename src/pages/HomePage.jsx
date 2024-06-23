@@ -1,8 +1,11 @@
-import React from "react";
-import PokemonList from "../components/PokemonList"
+import React, { useContext } from "react";
+import PokemonList from "../components/PokemonList";
 import FilterBar from "../components/FilterBar";
+import { PokemonContext } from "../context/PokemonContext";
 
 const Homepage = () => {
+  const  {onClickLoadMore} = useContext(PokemonContext)
+
   return (
     <>
       <div className="container-filter container">
@@ -26,10 +29,13 @@ const Homepage = () => {
         </div>
       </div>
 
-      <PokemonList/>
-      <FilterBar/>
+      <PokemonList />
+      <FilterBar />
+
+      <div className="container-btn-load-more container">
+        <button className="btn-load-more" onClick={onClickLoadMore}>Cragar más</button>
+      </div>
     </>
-    
   );
 };
 

@@ -48,7 +48,6 @@ const PokemonProvider = ({ children }) => {
 
     const res = await fetch(`${baseURL}pokemon?offset=0&limit=100000`);
     const data = await res.json();
-    //console.log(data);
 
     //LLamada a la API, pokemons Individuales.
     const promises = data.results.map(async (pokemon) => {
@@ -56,14 +55,15 @@ const PokemonProvider = ({ children }) => {
       const data = await res.json();
 
       return data;
+      
     });
-
+   
     const results = await Promise.all(promises);
 
     setAllPokemos(results);
     setLoading(false);
   };
-
+  
   //Llamada a la API,(Por ID)
   const getPokemonByID = async (id) => {
     const baseURL = "https://pokeapi.co/api/v2/";
@@ -75,12 +75,17 @@ const PokemonProvider = ({ children }) => {
 
   useEffect(() => {
     FirstFiftyPokemons();
-  }, []);
+  }, [offset]);
 
   useEffect(() => {
     getAllPokemons();
   }, []);
 
+  //Btn Cargar mas
+  const onClickLoadMore = ()=> {
+    setOffset(offset + 50)
+  }
+  
   return (
     <PokemonContext.Provider
       value={{
@@ -90,6 +95,14 @@ const PokemonProvider = ({ children }) => {
         FiftyPokémons,
         allPokemos,
         getPokemonByID,
+        onClickLoadMore,
+        //Loader
+        loading,
+        setLoading,
+        //Filter
+        active,
+        setActive,
+        
       }}
     >
       {children}
